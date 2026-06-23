@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blobfox</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            width: 100%;
+            height: 100vh;
+            overflow: hidden;
+            background: #000;
+        }
+
+        .gif-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('https://media.tenor.com/a1qnzucV5GIAAAAC/gengar-plush.gif');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            z-index: 1;
+        }
+
+        .marquee-container {
+            position: fixed;
+            top: 50%;
+            left: 0;
+            width: 100%;
+            transform: translateY(-50%);
+            z-index: 2;
+            overflow: hidden;
+            background: rgba(0, 0, 0, 0.5);
+            padding: 20px 0;
+        }
+
+        .marquee {
+            display: flex;
+            animation: scroll 15s linear infinite;
+            white-space: nowrap;
+            font-size: 3rem;
+            font-weight: bold;
+            color: #fff;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+        }
+
+        @keyframes scroll {
+            0% {
+                transform: translateX(100%);
+            }
+            100% {
+                transform: translateX(-100%);
+            }
+        }
+
+        /* Pause on hover */
+        .marquee-container:hover .marquee {
+            animation-play-state: paused;
+        }
+    </style>
+</head>
+<body>
+    <div class="gif-background"></div>
+    <div class="marquee-container">
+        <div class="marquee">Check back later for more Linkzz Inspired content!</div>
+    </div>
+</body>
+</html>
