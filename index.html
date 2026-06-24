@@ -16,6 +16,7 @@
             height: 100vh;
             overflow: hidden;
             background: #000;
+            font-family: sans-serif;
         }
 
         .gif-background {
@@ -39,39 +40,99 @@
             transform: translateY(-50%);
             z-index: 2;
             overflow: hidden;
-            background: rgba(0, 0, 0, 0.5);
+            background: rgba(0, 0, 0, 0.6);
             padding: 20px 0;
         }
 
         .marquee {
-            display: flex;
-            animation: scroll 15s linear infinite;
+            display: inline-block;
             white-space: nowrap;
             font-size: 3rem;
             font-weight: bold;
             color: #fff;
             text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+            animation: scroll 12s linear infinite;
         }
 
         @keyframes scroll {
             0% {
-                transform: translateX(100%);
+                transform: translateX(100vw);
             }
             100% {
                 transform: translateX(-100%);
             }
         }
 
-        /* Pause on hover */
         .marquee-container:hover .marquee {
             animation-play-state: paused;
+        }
+
+        /* Interaction Overlay for Browser Autoplay Policies */
+        .audio-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.85);
+            z-index: 10;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: opacity 0.5s ease;
+        }
+
+        .play-btn {
+            background: #fff;
+            color: #000;
+            border: none;
+            padding: 15px 30px;
+            font-size: 1.5rem;
+            font-weight: bold;
+            cursor: pointer;
+            border-radius: 5px;
+            box-shadow: 0 4px 15px rgba(255, 255, 255, 0.3);
+            transition: transform 0.2s;
+        }
+
+        .play-btn:hover {
+            transform: scale(1.05);
         }
     </style>
 </head>
 <body>
+
+    <audio id="maxwell-theme" loop>
+        <source src="maxwell.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
+
+    <div class="audio-overlay" id="overlay">
+        <button class="play-btn" id="play-btn">Unmute Maxwell</button>
+    </div>
+
     <div class="gif-background"></div>
     <div class="marquee-container">
         <div class="marquee">Check back later for more Linkzz Inspired content!</div>
     </div>
+
+    <script>
+        const overlay = document.getElementById('overlay');
+        const playBtn = document.getElementById('play-btn');
+        const audio = document.getElementById('maxwell-theme');
+
+        playBtn.addEventListener('click', () => {
+            // Start the looping audio
+            audio.play().catch(error => {
+                console.log("Audio playback failed:", error);
+            });
+            
+            // Fade out and remove the blocker overlay
+            overlay.style.opacity = '0';
+            setTimeout(() => {
+                overlay.style.display = 'none';
+            }, 500);
+        });
+    </script>
 </body>
 </html>
